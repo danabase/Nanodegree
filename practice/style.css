@@ -1,0 +1,44 @@
+* {
+	 -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#content {
+	max-width: 948px;
+	margin: 0 auto;
+}	
+
+h1 {
+	background-color: blue;
+	color:white;
+	font-size:38px;
+	font-family: Arial;
+	text-align: center;
+	padding:20px;
+	margin:0;
+}
+
+.row{
+	display:flex;
+	flex-direction: row-reverse;
+}
+
+.image{
+	padding-left:15px;
+}
+
+img {
+	width:166px;
+	height:111px;
+	border: 7px ridge #8BC34A;
+}
+
+p {
+	font-size:24px;
+	color:#795548;
+	font-family:monospace;
+	font-style:oblique;
+	text-align: center;
+}
