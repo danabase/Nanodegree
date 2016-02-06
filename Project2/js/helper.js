@@ -22,7 +22,7 @@ var HTMLblog = '<li class="flex-item"><span class="orange-text">blog</span><span
 var HTMLlocation = '<li class="flex-item"><span class="orange-text">location</span><span class="white-text">%data%</span></li>';
 
 var HTMLbioPic = '<img src="%data%" class="biopic">';
-var HTMLwelcomeMsgL1 = '<span class="welcome-message">%data%</span>';
+var HTMLwelcomeMsg = '<span class="welcome-message">%data%</span>';
 
 var HTMLskillsStart = '<h3 id="skills-h3">Skills at a Glance:</h3><ul id="skills" class="flex-box"></ul>';
 var HTMLskills = '<li class="flex-item"><span class="white-text">%data%</span></li>';
@@ -35,10 +35,10 @@ var HTMLworkLocation = '<div class="location-text">%data%</div>';
 var HTMLworkDescription = '<p><br>%data%</p>';
 
 var HTMLprojectStart = '<div class="project-entry"></div>';
-var HTMLprojectTitle = '<a href="#">%data%</a>';
+var HTMLprojectTitle = '<a href="#">%data%</a><br></br>';
 var HTMLprojectDates = '<div class="date-text">%data%</div>';
-var HTMLprojectDescription = '<p><br>%data%</p>';
-var HTMLprojectImage = '<img src="%data%">';
+var HTMLprojectDescription = '<p><br>%data%</p><br></br>';
+var HTMLprojectImage = '<img src="%data%" class = "proj-pic">';
 
 var HTMLschoolStart = '<div class="education-entry"></div>';
 var HTMLschoolName = '<a href="#">%data%';
@@ -46,6 +46,7 @@ var HTMLschoolDegree = ' -- %data%</a>';
 var HTMLschoolDates = '<div class="date-text">%data%</div>';
 var HTMLschoolLocation = '<div class="location-text">%data%</div>';
 var HTMLschoolMajor = '<em><br>Major: %data%</em>';
+var HTMLschoolURL = '<em><br><a href="#">%data%</a>';
 
 var HTMLonlineStart = '<div class="online-entry"></div>';
 var HTMLonlineClasses = '<h3>Online Classes</h3>';
@@ -54,9 +55,13 @@ var HTMLonlineSchool = ' - %data%</a>';
 var HTMLonlineDates = '<div class="date-text">%data%</div>';
 var HTMLonlineURL = '<br><a href="#">%data%</a>';
 
-var internationalizeButton = '<button>Internationalize</button>';
 var googleMap = '<div id="map"></div>';
 
+var HTMLfooterMobile = '<li class="flex-item"><span class="orange-text">mobile</span><span class="white-text">%data%</span></li>'; 
+var HTMLfooterEmail = '<li class="flex-item"><span class="orange-text">email</span><span class="white-text">%data%</span></li>'; 
+var HTMLfooterGithub = '<li class="flex-item"><span class="orange-text">github</span><span class="white-text">%data%</span></li>'; 
+var HTMLfooterTwitter = '<li class="flex-item"><span class="orange-text">twitter</span><span class="white-text">%data%</span></li>'; 
+var HTMLfooterLocation = '<li class="flex-item"><span class="orange-text">location</span><span class="white-text">%data%</span></li>'; 
 
 /*
 The International Name challenge in Lesson 2 where you'll create a function that will need this helper code to run. Don't delete! It hooks up your code to the button you'll be appending.
@@ -125,13 +130,13 @@ function initializeMap() {
         var locations = [];
 
         // adds the single location property from bio to the locations array
-        locations.push(bio.contacts.location);
+        locations.push(bio_obj.contacts.location);
 
         // iterates through school locations and appends each location to
         // the locations array. Note that forEach is used for array iteration
         // as described in the Udacity FEND Style Guide: 
         // https://udacity.github.io/frontend-nanodegree-styleguide/javascript.html#for-in-loop
-        education.schools.forEach(function(school) {
+        edu_obj.schools.forEach(function(school) {
             locations.push(school.location);
         });
 
@@ -139,7 +144,7 @@ function initializeMap() {
         // the locations array. Note that forEach is used for array iteration
         // as described in the Udacity FEND Style Guide: 
         // https://udacity.github.io/frontend-nanodegree-styleguide/javascript.html#for-in-loop
-        work.jobs.forEach(function(job) {
+        work_obj.jobs.forEach(function(job) {
             locations.push(job.location);
         });
 
