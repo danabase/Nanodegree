@@ -91,18 +91,21 @@ project_obj.display = function() {
 
     for (proj in project_obj.projects) {
         $("#projects").append(HTMLprojectStart);
+
         var formattedPojectTitle = HTMLprojectTitle.replace(
             "%data%", project_obj.projects[proj].title);
         $(".project-entry:last").append(formattedPojectTitle);
+                var formattedProjectImage = HTMLprojectImage.replace(
+        	"%data%",project_obj.projects[proj].images);
+        $(".project-entry:last").prepend(formattedProjectImage);
+        
         var formattedProjectDates = HTMLprojectDates.replace(
             "%data%", project_obj.projects[proj].dates);
         $(".project-entry:last").append(formattedProjectDates);
         var formattedProjectDesc = HTMLprojectDescription.replace(
             "%data%", project_obj.projects[proj].description);
         $(".project-entry:last").append(formattedProjectDesc);
-        var formattedProjectImage = HTMLprojectImage.replace(
-        	"%data%",project_obj.projects[proj].images);
-        $(".project-entry:last").prepend(formattedProjectImage);
+
     }
 };
 
