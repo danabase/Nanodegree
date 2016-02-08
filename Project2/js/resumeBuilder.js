@@ -88,33 +88,25 @@ var project = {
 
 project.display = function() {
     var data = "%data%";
-    
-
-    for ( proj in project.projects) {
+    var i;
+             for (i = 0; i < project.projects.length; i++) {
     	    var formattedProjectTitle = HTMLprojectTitle.replace(
-            data, project.projects[proj].title);
+            data, project.projects[i].title);
             var formattedProjectDates = HTMLprojectDates.replace(
-            data, project.projects[proj].dates);
+            data, project.projects[i].dates);
             var formattedProjectDesc = HTMLprojectDescription.replace(
-             data, project.projects[proj].description);
+             data, project.projects[i].description);
 
             $('#projects').append(HTMLprojectStart);
             $('.project-entry:last').append(formattedProjectTitle);
             $('.project-entry:last').append(formattedProjectDates);
             $('.project-entry:last').append(formattedProjectDesc);
 
-            project.projects[proj].images.forEach(function(val) {
+            project.projects[i].images.forEach(function(val) {
             		var formattedProjectImage = HTMLprojectImage.replace(
             			data,val);
             		$('.project-entry:last').append(formattedProjectImage);
-            });
-
-         //   for (image in project.projects[proj].images) {
-	        // var formattedProjectImage = HTMLprojectImage.replace(
-	        // 	data, project.projects[proj].image);
-	        // $("#projects").append(formattedProjectImage);
-
-   		
+            });  		
     }
 };
 
