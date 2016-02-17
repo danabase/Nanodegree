@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>rgba</title>
+		<script type="application/javascript">
+		function draw(){
+			var canvas = document.getElementById("c")
+			if (canvas.getContext) {
+				var ctx = canvas.getContext('2d');
+				var data = ctx.getImageData(0,0,400,400);
+			}
+		}
+		</script>
+	</head>
+	<body onload = "draw();">
+	<canvas id = "c" width = "200" height="200">
+	</body>
+</html>
