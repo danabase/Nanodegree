@@ -5,8 +5,18 @@ var Enemy = function() {
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
+    this.sprite = 'images/enemy-bug.png'; //REQ #1
+    this.x = -100;
+    this.y = 146;
 };
+    //method sets enemy's initial location   REQ #2
+Enemy.prototype.setLocation = function(this.x,this.y){
+    ctx.moveTo(this.x,this.y);
+}
+   //method sets enemy's initial speed  REQ #3
+Enemy.prototype.setSpeed = function(){
+
+}
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
