@@ -37,7 +37,9 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function() {
-
+    this.sprite = 'images/char-boy.png';
+    this.x = 200;
+    this.y = 400;
 };
 
 Player.prototype.update = function(){
@@ -45,12 +47,27 @@ Player.prototype.update = function(){
 };
 
 Player.prototype.render = function() {
-
+ ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-Player.prototype.handleInput = function() {
-
+ Player.prototype.handleInput = function(allowedKeys) {//allowedKeys[e.keyCode]) {
+       if (allowedKeys[37]) { //left
+         this.x =- 100;
 }
+//     if (e.keyCode = 37) { //left
+//         this.x -= 100;
+//     } else if (e.keyCode = 38) { //up
+//         this.y -= 100;
+//     } else if (e.keyCode = 39) { //right
+//         this.x += 100;
+//     } else if (e.keyCode = 40) { //down
+//         this.y += 100;
+//     };
+ };
+
+Player.prototype.checkCollisions = function() {
+
+};
 
 var player = new Player();
 
