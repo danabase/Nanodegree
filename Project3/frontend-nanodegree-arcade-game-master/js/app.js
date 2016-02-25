@@ -50,19 +50,32 @@ Player.prototype.render = function() {
  ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
- Player.prototype.handleInput = function(allowedKeys) {//allowedKeys[e.keyCode]) {
-       if (allowedKeys[37]) { //left
-         this.x =- 100;
-}
-//     if (e.keyCode = 37) { //left
-//         this.x -= 100;
-//     } else if (e.keyCode = 38) { //up
-//         this.y -= 100;
-//     } else if (e.keyCode = 39) { //right
-//         this.x += 100;
-//     } else if (e.keyCode = 40) { //down
-//         this.y += 100;
-//     };
+ Player.prototype.handleInput = function(input) {
+      switch (input) {
+        case 'left':
+            if (this.x > 0) {
+            this.x -=100;
+        };
+            break;
+
+        case 'up':
+            if (this.y > 0) {
+              this.y -=100;
+            };
+           break;
+
+        case 'right':
+            if (this.x < 400) {
+                this.x  +=100;
+            };
+            break;
+
+        case 'down':
+            if (this.y < 400) {
+               this.y +=100; 
+            }
+             break;          
+      };
  };
 
 Player.prototype.checkCollisions = function() {
@@ -70,11 +83,15 @@ Player.prototype.checkCollisions = function() {
 };
 
 var player = new Player();
-
+var enemy1 = new Enemy();
+var enemy2 = new Enemy();
+var enemy3 = new Enemy();
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var allEnemies = [];
+//var allEnemies = [enemy1,enemy2,enemy3];
+ var allEnemies = [];
+
 
 
 // This listens for key presses and sends the keys to your
