@@ -1,23 +1,22 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(x,y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png'; //REQ #1
-    this.x = -100;
-    this.y = 146;
+    // this.x = 1;
+    // this.y = 1;
+        this.x = x;
+        this.y = y;
 };
     //method sets enemy's initial location   REQ #2
-Enemy.prototype.setLocation = function(){
-    this.x = -100;
-    this.y = 83;
+Enemy.prototype.setLocation = function(x,y){
+    this.x = x;
+    this.y = y;
 };
    //method sets enemy's initial speed  REQ #3
-Enemy.prototype.setSpeed = function(){
-    this.speed = 1;
-}
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -25,7 +24,9 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x += (this.x * dt);
+    this.x += 100*dt;
+    this.x = this.x > 500 ? -100 : this.x;
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 // Draw the enemy on the screen, required method for game
@@ -36,14 +37,14 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function() {
+var Player = function(x,y) {
     this.sprite = 'images/char-boy.png';
-    this.x = 200;
-    this.y = 400;
+    this.x = x;
+    this.y = y;
 };
 
 Player.prototype.update = function(){
-
+ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 Player.prototype.render = function() {
@@ -59,7 +60,11 @@ Player.prototype.render = function() {
             break;
 
         case 'up':
-            if (this.y > 0) {
+            if (this.y < 100) {   //"edge case"
+                this.y = 400;
+            };
+
+            if (this.y > 0) {  //"default case"
               this.y -=100;
             };
            break;
@@ -82,15 +87,13 @@ Player.prototype.checkCollisions = function() {
 
 };
 
-var player = new Player();
-var enemy1 = new Enemy();
-var enemy2 = new Enemy();
-var enemy3 = new Enemy();
+var player = new Player(200,400);
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 //var allEnemies = [enemy1,enemy2,enemy3];
- var allEnemies = [];
+var allEnemies = [new Enemy(0, 63), new Enemy(200, 146), new Enemy(400, 229)];
 
 
 
