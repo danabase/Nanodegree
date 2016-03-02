@@ -6,17 +6,15 @@ var Enemy = function(x,y) {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png'; //REQ #1
-    // this.x = 1;
-    // this.y = 1;
         this.x = x;
         this.y = y;
+        this.speed = getRandomInt(2,4);
 };
     //method sets enemy's initial location   REQ #2
 Enemy.prototype.setLocation = function(x,y){
     this.x = x;
     this.y = y;
-};
-   //method sets enemy's initial speed  REQ #3
+};  
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -25,7 +23,7 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x += 100*dt;
-    this.x = this.x > 500 ? -100 : this.x;
+    this.x = (this.x > 500 ? -100 : this.x) + this.speed;
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
@@ -61,11 +59,11 @@ Player.prototype.render = function() {
 
         case 'up':
             if (this.y < 100) {   //"edge case"
-                this.y = 400;
+                this.y = 500;
             };
 
             if (this.y > 0) {  //"default case"
-              this.y -=100;
+              this.y -=90;
             };
            break;
 
@@ -83,9 +81,20 @@ Player.prototype.render = function() {
       };
  };
 
-Player.prototype.checkCollisions = function() {
-
+Player.prototype.checkCollisions = function(allEnemies) {
+    var i;
+    for (i =0; i < allEnemies.length; i++) {
+        if (this.x == allEnemies[i].x && this.y == allEnemies[i].y) {
+            this.x = 200;
+            this.y = 500;
+        }
+    }
+     
 };
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 var player = new Player(200,400);
 
