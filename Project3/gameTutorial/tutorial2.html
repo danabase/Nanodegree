@@ -17,7 +17,10 @@ tutorial2.html
 	y:40,
 	spdY:5,
 	name:'P',
-	hp:10
+	hp:10,
+	width:20,
+	height:20,
+	color: 'green'
 };	
 
 var enemyList = {};  //create an enemy list object
@@ -33,11 +36,24 @@ var enemyList = {};  //create an enemy list object
 }
 
  testCollisionEntity = function(entity1,entity2) { //return if colliding true/false
-   var distance = getDistanceBetweenEntity(entity1,entity2);
-   return distance < 30;
+   var rect1 = { //player
+   	x: entity1.x-entity1.width/2, //center the rect
+   	y: entity1.y-entity1.height/2,
+   	width: entity1.width,
+   	height: entity1.height,
+   }
+
+   var rect2 = { //enemy
+   	x: entity2.x-entity2.width/2, //center the rect
+   	y: entity2.y-entity2.height/2,
+   	width: entity2.width,
+   	height: entity2.height,
+   }
+
+   return testCollisionRectRect(rect1,rect2);
 }
 
-Enemy = function(id,x,y,spdX,spdY) {
+Enemy = function(id,x,y,spdX,spdY,width,height) {
 	var enemy3 = {
 	x:x,
 	spdX:spdX,
@@ -45,6 +61,9 @@ Enemy = function(id,x,y,spdX,spdY) {
 	spdY:spdY,
 	name:'E',
 	id:id,
+	width: width,
+	height: height,
+	color: 'red'
   };
   enemyList[id] = enemy3; //add enemy to enemyList object
 }
@@ -78,8 +97,18 @@ document.onmousemove = function(mouse) {
        };
 	};
 
+	testCollisionRectRect = function(rect1,rect2) {
+		return rect1.x <= rect2.x+rect2.width
+			&& rect2.x <= rect1.x+rect1.width
+			&& rect1.y <= rect2.y+rect2.height
+			&& rect2.y <= rect1.y+rect1.height;
+	};
+
 	drawEntity = function(something){
-		ctx.fillText(something.name,something.x,something.y);
+		ctx.save();
+		ctx.fillStyle = something.color;
+		ctx.fillRect(something.x-something.width/2,something.y-something.height/2,something.width,something.height); //removing half of height and width ensures the object will be in the center
+		ctx.restore();
 	};
 
 	update = function() {
@@ -104,26 +133,9 @@ document.onmousemove = function(mouse) {
 			ctx.fillText(player.hp +' Hp',0,30);
     };
 	//create enemies	
-	Enemy('E1',250,350,10, 15);
-	Enemy('E2',250,350,10,-15);
-	Enemy('E3',250,150,10,-8);
+	Enemy('E1',250,350,10, 15,30,30);
+	Enemy('E2',250,350,10,-15,20,20);
+	Enemy('E3',250,150,10,-8,40,10);
 
 	setInterval(update,40);
-
-    // update(x,y,spdX,spdY,iter);
-    // update(40,190,30,-5,6);
-    // update(200,190,30,-5,8);
-    // update(1,400,50,10,5);
-
-
-
-    
-    // ctx.font = "30px Arial";  //font used
-    // ctx.fillStyle = 'red';    //Color of the text and forms
-    // ctx.globalAlpha = 0.5;    //Transparency 0 = invisible, 1 = visible
-
-    // ctx.fillText("Hello",50,50);
-    // ctx.fillRect(50,50,100,100);
-    // ctx.clearRect(75,75,100,100);
-
 </script>
