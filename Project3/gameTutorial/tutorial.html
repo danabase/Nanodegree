@@ -43,15 +43,19 @@ enemyList['E1'] = enemy;
 enemyList['E2'] = enemy2;
 
 	var enemy3 = {
-	x:11,
+	x:250,
 	spdX:10,
-	y:350,
-	spdY:15,
+	y:150,
+	spdY:-8,
 	name:'E',
 	id:'E3'
 };
 
 enemyList['E3'] = enemy3;
+
+function Enemy() {
+
+}
 	setInterval(update,40);
 
 	function updateEntity(something){

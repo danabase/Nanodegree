@@ -1,0 +1,129 @@
+tutorial2.html
+
+<canvas id="ctx" width="500" height = "500" style="border: 1px solid #000000;"></canvas>
+<script>
+	var ctx = document.getElementById("ctx").getContext("2d");
+	ctx.font = '30px Arial';
+	
+	var HEIGHT = 500;
+	var WIDTH = 500;	
+	var timeWhenGameStarted = Date.now(); //return time in ms
+
+//player
+
+	var player = {
+	x:50,	
+	spdX:30,
+	y:40,
+	spdY:5,
+	name:'P',
+	hp:10
+};	
+
+var enemyList = {};  //create an enemy list object
+
+//player: point (x,y)
+//enemy: point (x,y)
+//get distance between player and enemy < 10 => colliding
+
+ getDistanceBetweenEntity = function(entity1, entity2) { //return distance (number)
+	var vx = entity1.x - entity2.x;
+	var vy = entity1.y - entity2.y;
+	return Math.sqrt(vx*vx+vy*vy); //know how to use this.
+}
+
+ testCollisionEntity = function(entity1,entity2) { //return if colliding true/false
+   var distance = getDistanceBetweenEntity(entity1,entity2);
+   return distance < 30;
+}
+
+Enemy = function(id,x,y,spdX,spdY) {
+	var enemy3 = {
+	x:x,
+	spdX:spdX,
+	y: y,
+	spdY:spdY,
+	name:'E',
+	id:id,
+  };
+  enemyList[id] = enemy3; //add enemy to enemyList object
+}
+
+//CANNOT ask the browser where the mouse is
+//CAN ask the browser where the mouse is when the mouse moves
+document.onmousemove = function(mouse) {
+	var mouseX = mouse.clientX;
+	var mouseY = mouse.clientY;
+
+	player.x = mouseX;
+	player.y = mouseY;
+}
+
+	 updateEntity = function(something){
+       updateEntityPosition(something);
+       drawEntity(something);
+	};
+
+	updateEntityPosition = function(something){
+	   //entity
+       something.x += something.spdX;
+       something.y += something.spdY;
+       
+       if (something.x < 0 || something.x > WIDTH) {
+       	   something.spdX = -something.spdX;
+       };
+
+       if (something.y < 0 || something.y > HEIGHT) {
+       	   something.spdY = -something.spdY;
+       };
+	};
+
+	drawEntity = function(something){
+		ctx.fillText(something.name,something.x,something.y);
+	};
+
+	update = function() {
+		    ctx.clearRect(0,0,WIDTH,HEIGHT); //clears artifacts (think flipbook animation)
+			
+			for (var key in enemyList) {
+				updateEntity(enemyList[key]);
+
+				var isColliding = testCollisionEntity(player,enemyList[key]);
+				if (isColliding) {
+					player.hp = player.hp - 1;
+					if (player.hp <= 0) {
+						var timeSurvived = Date.now() - timeWhenGameStarted;
+						console.log('You lost! You survived for '+timeSurvived + ' ms.');
+						timeWhenGameStarted = Date.now(); //reset time
+						player.hp = 10;  //reset HP
+					}
+				};
+			};
+
+			drawEntity(player);//draw the player based on mouse movement
+			ctx.fillText(player.hp +' Hp',0,30);
+    };
+	//create enemies	
+	Enemy('E1',250,350,10, 15);
+	Enemy('E2',250,350,10,-15);
+	Enemy('E3',250,150,10,-8);
+
+	setInterval(update,40);
+
+    // update(x,y,spdX,spdY,iter);
+    // update(40,190,30,-5,6);
+    // update(200,190,30,-5,8);
+    // update(1,400,50,10,5);
+
+
+
+    
+    // ctx.font = "30px Arial";  //font used
+    // ctx.fillStyle = 'red';    //Color of the text and forms
+    // ctx.globalAlpha = 0.5;    //Transparency 0 = invisible, 1 = visible
+
+    // ctx.fillText("Hello",50,50);
+    // ctx.fillRect(50,50,100,100);
+    // ctx.clearRect(75,75,100,100);
+
+</script>
