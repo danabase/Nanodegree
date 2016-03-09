@@ -17,6 +17,7 @@
 	name:'P',
 };	
 
+var enemyList = {};
 //enemy	
 
 	var enemy = {
@@ -24,9 +25,33 @@
 	spdX:10,
 	y:350,
 	spdY:15,
-	name:'E'
+	name:'E',
+	id:'E1'
 };	
 
+enemyList['E1'] = enemy;
+
+	var enemy2 = {
+	x:250,
+	spdX:10,
+	y:350,
+	spdY:15,
+	name:'E',
+	id:'E2'
+};	
+
+enemyList['E2'] = enemy2;
+
+	var enemy3 = {
+	x:11,
+	spdX:10,
+	y:350,
+	spdY:15,
+	name:'E',
+	id:'E3'
+};
+
+enemyList['E3'] = enemy3;
 	setInterval(update,40);
 
 	function updateEntity(something){
@@ -47,8 +72,11 @@
 	};
 
 	function update() {
+		    ctx.clearRect(0,0,WIDTH,HEIGHT);
 			updateEntity(player);
-			updateEntity(enemy);
+			for (var key in enemyList) {
+				updateEntity(enemyList[key]);
+			}
     };
 
 
