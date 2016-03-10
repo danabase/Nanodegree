@@ -28,6 +28,7 @@
 
 var enemyList = {};  //create an enemy list object
 var upgradeList = {};
+var bulletList = {};
 
 
 getDistanceBetweenEntity = function(entity1, entity2) { //return distance (number)
@@ -69,20 +70,7 @@ Enemy = function(id,x,y,spdX,spdY,width,height) { //create enemy
   enemyList[id] = enemy3; //add enemy to enemyList object
 }
 
-Upgrade = function(id,x,y,spdX,spdY,width,height) { //create enemy
-	var asd = {
-	x:x,
-	spdX:spdX,
-	y: y,
-	spdY:spdY,
-	name:'E',
-	id:id,
-	width: width,
-	height: height,
-	color: 'orange'
-  };
-  upgradeList[id] = asd; //add enemy to enemyList object
-}
+
 
 //CANNOT ask the browser where the mouse is
 //CAN ask the browser where the mouse is when the mouse moves
@@ -148,6 +136,36 @@ testCollisionRectRect = function(rect1,rect2) {   //test the collision
 
 		    if (frameCount % 100 === 0) // every 4 seconds
 		    	randomlyGenerateEnemy();
+
+		    if (frameCount % 75 === 0) {// every 3 seconds
+		    	randomlyGenerateUpgrade();
+		    };
+
+		    if (frameCount % 25 === 0) {// every second
+		    	randomlyGenerateBullet();
+		    };	
+
+		    for (var key in bulletList) {
+		    	updateEntity(bulletList[key]);
+
+		    	for (var key2 in enemyList) {
+                   var isColliding = testCollisionEntity(bulletList[key],enemyList[key2]); 
+                   if (isColliding) {
+                   	delete bulletList[key];
+                   	delete enemyList[key2];
+                   }
+		    	}
+		    }	
+
+
+		    for (var key in upgradeList) {
+		    	updateEntity(upgradeList[key]);
+		    	var isColliding = testCollisionEntity(player,upgradeList[key]); 
+		    	if (isColliding) {
+		    		score += 1000;
+		    		delete upgradeList[key]; //remove the collided upgrade
+		    	};
+		    }
 		    	
 		    			    			    
 			
@@ -175,12 +193,14 @@ testCollisionRectRect = function(rect1,rect2) {   //test the collision
 			ctx.fillText('Score: '+score,200,30);
     };
 
-    startNewGame = function() {
-    	player.hp = 10;  //reset HP
-    	timeWhenGameStarted = Date.now(); //reset time
-    	frameCount = 0; //reset frame count
-    	score = 0;      //reset score
-    	enemyList = {}; //clear list of enemies
+    startNewGame = function() { //reset hp, time and score, clear enemies and upgrades
+    	player.hp = 10;  
+    	timeWhenGameStarted = Date.now(); 
+    	frameCount = 0; 
+    	score = 0;      
+    	enemyList = {};
+    	bulletList = {}; 
+    	upgradeList = {};
     	                //generate 3 random enemies
     	randomlyGenerateEnemy();
 		randomlyGenerateEnemy();
@@ -189,7 +209,7 @@ testCollisionRectRect = function(rect1,rect2) {   //test the collision
 
 	randomlyGenerateEnemy = function() {
 		//Math.random() returns a number between 0 and 1
-         var x = 1 + Math.random() * WIDTH;
+         var x = Math.random() * WIDTH;
          var y = Math.random() * HEIGHT;
          var height = 10 + Math.random() * 30; //between 10 and 40
          var width = 10 + Math.random() * 30;
@@ -199,17 +219,61 @@ testCollisionRectRect = function(rect1,rect2) {   //test the collision
          Enemy(id,x,y,spdX,spdY,width,height);
 	};
 
-		randomlyGenerateUpgrade = function() {
+	Upgrade = function(id,x,y,spdX,spdY,width,height) { //create enemy
+	var asd = {
+	x:x,
+	spdX:spdX,
+	y: y,
+	spdY:spdY,
+	name:'E',
+	id:id,
+	width: width,
+	height: height,
+	color: 'orange',
+  };
+  upgradeList[id] = asd; //add enemy to enemyList object
+};
+
+randomlyGenerateUpgrade = function() {
 		//Math.random() returns a number between 0 and 1
-         var x = 1 + Math.random() * WIDTH;
+         var x = Math.random() * WIDTH;
          var y = Math.random() * HEIGHT;
          var height = 10; 
-         var width = 10 ;
+         var width = 10;
          var id = Math.random();
          var spdX = 0;
          var spdY = 0;
-         Enemy(id,x,y,spdX,spdY,width,height);
+         Upgrade(id,x,y,spdX,spdY,width,height);
 	};
+
+Bullet = function(id,x,y,spdX,spdY,width,height) { //create enemy
+	var asd = {
+	x:x,
+	spdX:spdX,
+	y: y,
+	spdY:spdY,
+	name:'E',
+	id:id,
+	width: width,
+	height: height,
+	color: 'black',
+  };
+  bulletList[id] = asd; //add enemy to enemyList object
+};
+
+randomlyGenerateBullet = function() {
+		//Math.random() returns a number between 0 and 1
+         var x = player.x;
+         var y = player.y;
+         var height = 10; 
+         var width = 10;
+         var id = Math.random();
+		 var angle = Math.random() * 360;
+
+         var spdX = Math.cos(angle/180*Math.PI)*5; //computer expect you to use radian angle
+         var spdY = Math.sin(angle/180*Math.PI)*5;
+         Bullet(id,x,y,spdX,spdY,width,height);
+	};	
 
 	startNewGame();
                                 //set game in motion
