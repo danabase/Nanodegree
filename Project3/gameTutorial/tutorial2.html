@@ -147,9 +147,9 @@ testCollisionRectRect = function(rect1,rect2) {   //test the collision
 
 		    for (var key in bulletList) {
 		    	updateEntity(bulletList[key]);
-
+                                                 //test for collision b/t enemy and bullet
 		    	for (var key2 in enemyList) {
-                   var isColliding = testCollisionEntity(bulletList[key],enemyList[key2]); 
+                   var isColliding = testCollisionEntity(bulletList[key],enemyList[key]); 
                    if (isColliding) {
                    	delete bulletList[key];
                    	delete enemyList[key2];
@@ -219,7 +219,7 @@ testCollisionRectRect = function(rect1,rect2) {   //test the collision
          Enemy(id,x,y,spdX,spdY,width,height);
 	};
 
-	Upgrade = function(id,x,y,spdX,spdY,width,height) { //create enemy
+Upgrade = function(id,x,y,spdX,spdY,width,height) { //create enemy
 	var asd = {
 	x:x,
 	spdX:spdX,

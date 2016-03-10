@@ -146,9 +146,8 @@ testCollisionRectRect = function(rect1,rect2) {   //test the collision
 		    frameCount++; 
 		    score++;
 
-		    if (frameCount % 100 === 0) {// every 4 seconds
+		    if (frameCount % 100 === 0) // every 4 seconds
 		    	randomlyGenerateEnemy();
-		    };	
 
 		    if (frameCount % 75 === 0) {// every 3 seconds
 		    	randomlyGenerateUpgrade();
@@ -157,9 +156,12 @@ testCollisionRectRect = function(rect1,rect2) {   //test the collision
 		    for (var key in upgradeList) {
 		    	updateEntity(upgradeList[key]);
 		    }
+		    	
 		    			    			    
 			
 			for (var key in enemyList) {        //loop through the enemy list and increment their positions
+				
+
 				updateEntity(enemyList[key]);
 
 				var isColliding = testCollisionEntity(player,enemyList[key]); //test collision of player with current entity
@@ -167,8 +169,8 @@ testCollisionRectRect = function(rect1,rect2) {   //test the collision
 					player.hp = player.hp - 1; //decrease health by 1 after each collision
 				};
 
+				
 			};
-
 			if (player.hp <= 0) {
 						var timeSurvived = Date.now() - timeWhenGameStarted; //calculate time survived
 						console.log('You lost! You survived for '+Math.round(timeSurvived/1000) + ' seconds.');
@@ -209,11 +211,11 @@ testCollisionRectRect = function(rect1,rect2) {   //test the collision
 		//Math.random() returns a number between 0 and 1
          var x = 1 + Math.random() * WIDTH;
          var y = Math.random() * HEIGHT;
-         var height = 10 ; 
-         var width = 10;
+         var height = 10; 
+         var width = 10 ;
          var id = Math.random();
-         var spdX = 5 + Math.random() * 5;
-         var spdY = 5 + Math.random() * 5;
+         var spdX = 0;
+         var spdY = 0;
          Enemy(id,x,y,spdX,spdY,width,height);
 	};
 
