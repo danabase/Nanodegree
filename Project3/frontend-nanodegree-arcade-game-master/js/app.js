@@ -8,6 +8,8 @@ var Enemy = function(x,y) {
     this.sprite = 'images/enemy-bug.png'; //REQ #1
         this.x = x;
         this.y = y;
+        this.width = 65;
+        this.height = 90;
         this.speed = getRandomInt(2,4);
 };
     //method sets enemy's initial location   REQ #2
@@ -39,6 +41,8 @@ Enemy.prototype.render = function() {
     this.sprite = 'images/char-boy.png';
     this.x = x;
     this.y = y;
+    this.width = 66;
+    this.height = 95;
 };
 
 Player.prototype.update = function(){
@@ -84,9 +88,11 @@ Player.prototype.render = function() {
 Player.prototype.checkCollisions = function(allEnemies) {
     var i;
     for (i =0; i < allEnemies.length; i++) {
-        return this.x === allEnemies[i].x 
-        && this.y === allEnemies[i].y;
-        }
+        return this.x < allEnemies[i].x + allEnemies[i].width 
+        && this.x + this.width > allEnemies[i].x
+        && this.y < allEnemies[i].y + allEnemies[i].height
+        && this.height + this.y > allEnemies[i].y;
+        
     }
      
 };
