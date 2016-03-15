@@ -33,29 +33,23 @@ Enemy.prototype.update = function(dt) {
     this.x += this.speed; 
 
     var enemyxw = this.x + this.width; 
+    var enemyyh = this.y + this.height
 
      if (this.y == player.y) {
-          if (player.x == this.x) {
-          if (player.x < enemyxw) {
-            if (player.x + player.width < enemy.y + enemy.height) {
-                if (player.y < enemy.y + enemy.height) {
-                    if (player.height + player.y > enemy.y) {
-                        player.x = 200;
-                        player.y = 500;
+              if (player.x < enemyxw) {
+                if (player.x + player.width < enemyyh) {
+                    if (player.y < enemyyh) {
+                        if (player.height + player.y > this.y) {
+                            player.x = 200;
+                            player.y = 500;
+                        }
                     }
                 }
-            }
-          }
-            }
+              }
+            
      }                       
 
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-                                                //check collisions each time
-    // var isColliding = player.checkCollisions(this);
-    //          if (isColliding) {
-    //             player.x = 200;
-    //             player.y = 500;
-    //          };
 };
 
 // Draw the enemy on the screen, required method for game
