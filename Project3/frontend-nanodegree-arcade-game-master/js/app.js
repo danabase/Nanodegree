@@ -8,8 +8,8 @@ var Enemy = function(x,y) {
     this.sprite = 'images/enemy-bug.png'; //REQ #1
         this.x = x;
         this.y = y;
-        this.width = 65;
-        this.height = 90;
+        this.width = 101;
+        this.height = 171;
         this.speed = getRandomInt(2,4);
 };
     //method sets enemy's initial location   REQ #2
@@ -25,8 +25,37 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x += 100*dt;
-    this.x = (this.x > 500 ? -100 : this.x) + this.speed;
+
+     if (this.x > 500) {
+        this.x = -100;
+     } 
+
+    this.x += this.speed; 
+
+    var enemyxw = this.x + this.width; 
+
+     if (this.y == player.y) {
+          if (player.x == this.x) {
+          if (player.x < enemyxw) {
+            if (player.x + player.width < enemy.y + enemy.height) {
+                if (player.y < enemy.y + enemy.height) {
+                    if (player.height + player.y > enemy.y) {
+                        player.x = 200;
+                        player.y = 500;
+                    }
+                }
+            }
+          }
+            }
+     }                       
+
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+                                                //check collisions each time
+    // var isColliding = player.checkCollisions(this);
+    //          if (isColliding) {
+    //             player.x = 200;
+    //             player.y = 500;
+    //          };
 };
 
 // Draw the enemy on the screen, required method for game
@@ -41,8 +70,8 @@ Enemy.prototype.render = function() {
     this.sprite = 'images/char-boy.png';
     this.x = x;
     this.y = y;
-    this.width = 66;
-    this.height = 95;
+    this.width = 101;
+    this.height = 171;
 };
 
 Player.prototype.update = function(){
@@ -85,17 +114,16 @@ Player.prototype.render = function() {
       };
  };
 
-Player.prototype.checkCollisions = function(allEnemies) {
-    var i;
-    for (i =0; i < allEnemies.length; i++) {
-        return this.x < allEnemies[i].x + allEnemies[i].width 
-        && this.x + this.width > allEnemies[i].x
-        && this.y < allEnemies[i].y + allEnemies[i].height
-        && this.height + this.y > allEnemies[i].y;
+// Player.prototype.checkCollisions = function(allEnemies) {
+//     for (var i =0; i < allEnemies.length; i++) {
+//         return this.x < allEnemies[i].x + allEnemies[i].width 
+//         && this.x + this.width > allEnemies[i].x
+//         && this.y < allEnemies[i].y + allEnemies[i].height
+//         && this.height + this.y > allEnemies[i].y;
         
-    }
+//     }
      
-};
+// };
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
