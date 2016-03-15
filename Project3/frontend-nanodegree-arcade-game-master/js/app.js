@@ -32,14 +32,12 @@ Enemy.prototype.update = function(dt) {
 
     this.x += this.speed; 
 
-    var enemyxw = this.x + this.width; 
-    var enemyyh = this.y + this.height
     if (this.y == player.y) 
-        if(
+
             (((this.x + this.height) >= player.x) || (this.x <= (player.x + player.width)))
             &&
           (((this.y + this.height )>= player.y) || (this.y <= (player.y + player.height)))
-          ) {
+           {
                                              player.x = 200;
                                              player.y = 500;
         }
@@ -60,6 +58,10 @@ Enemy.prototype.update = function(dt) {
 
     // ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
+Enemy.prototype.checkCollisions = function() {
+
+}
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
