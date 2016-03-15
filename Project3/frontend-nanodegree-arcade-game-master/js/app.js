@@ -13,10 +13,10 @@ var Enemy = function(x,y) {
         this.speed = getRandomInt(2,4);
 };
     //method sets enemy's initial location   REQ #2
-Enemy.prototype.setLocation = function(x,y){
-    this.x = x;
-    this.y = y;
-};  
+// Enemy.prototype.setLocation = function(x,y){
+//     this.x = x;
+//     this.y = y;
+// };  
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -58,7 +58,7 @@ Enemy.prototype.update = function(dt) {
             
      // }                       
 
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    // ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 // Draw the enemy on the screen, required method for game
