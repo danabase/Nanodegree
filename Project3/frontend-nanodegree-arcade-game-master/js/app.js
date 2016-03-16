@@ -31,35 +31,21 @@ Enemy.prototype.update = function(dt) {
      } 
 
     this.x += this.speed; 
-
-    if (this.y == player.y) 
-
-            (((this.x + this.height) >= player.x) || (this.x <= (player.x + player.width)))
-            &&
-          (((this.y + this.height )>= player.y) || (this.y <= (player.y + player.height)))
-           {
-                                             player.x = 200;
-                                             player.y = 500;
-        }
-
-     // if (this.y == player.y) {
-     //          if (player.x < enemyxw) {
-     //            if (player.x + player.width < enemyyh) {
-     //                if (player.y < enemyyh) {
-     //                    if (player.height + player.y > this.y) {
-     //                        player.x = 200;
-     //                        player.y = 500;
-     //                    }
-     //                }
-     //            }
-     //          }
-            
-     // }                       
-
-    // ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 Enemy.prototype.checkCollisions = function() {
+     if  (
+
+           ( (this.x + this.width) >= player.x) && 
+            (this.x <= (player.x + player.width)) &&
+          ((this.y + this.height )>= player.y) && 
+            (this.y <= (player.y + player.height))
+          
+           ){
+                player.x = 200;
+                player.y = 400;
+        }
+
 
 }
 
