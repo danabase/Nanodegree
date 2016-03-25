@@ -9,7 +9,7 @@ var Enemy = function(x,y) {
         this.x = x;
         this.y = y;
         this.width = 101;
-        this.height = 171;
+        this.height = 101;//171;
         this.speed = getRandomInt(2,4);
 };
     //method sets enemy's initial location   REQ #2
@@ -24,22 +24,24 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x += 100*dt;
+    //this.x += 100*dt;
+
 
      if (this.x > 500) {
         this.x = -100;
      } 
 
     this.x += this.speed; 
+    //this.x = this.speed * dt;
 };
 
 Enemy.prototype.checkCollisions = function() {
      if  (
 
-           ( (this.x + this.width) >= player.x) && 
-            (this.x <= (player.x + player.width)) &&
-          ((this.y + this.height )>= player.y) && 
-            (this.y <= (player.y + player.height))
+           ( (this.x + (this.width/2) ) >= player.x) && 
+            (this.x <= (player.x + (player.width/2) )) &&
+          ((this.y + (this.height/2) )>= player.y) && 
+            (this.y <= (player.y + (player.height/2) ))
           
            ){
                 player.x = 200;
@@ -61,8 +63,8 @@ Enemy.prototype.render = function() {
     this.sprite = 'images/char-boy.png';
     this.x = x;
     this.y = y;
-    this.width = 101;
-    this.height = 171;
+    this.width = 50; //101;
+    this.height = 101;//171;
 };
 
 Player.prototype.update = function(){
