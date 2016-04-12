@@ -1,0 +1,19 @@
+p {
+	font-weight: bold;
+}
+
+
+			body {background-color: green;}
+		
+
+@media screen and (max-width: 400px)  {
+			body { background-color: red; }
+		}
+
+@media screen and (min-width:600px) {
+		body {background-color: blue;}
+}
+
+@media screen and (min-width: 700px) {
+	p {font-size: 48px;}
+}	
