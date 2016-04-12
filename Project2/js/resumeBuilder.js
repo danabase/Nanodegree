@@ -131,7 +131,6 @@ var bio = {
 };
 
 bio.display = function() {
-    //  $("#topContacts").append(topContactsHTMLcontactGeneric);
     var $header = $('#header');
     var $topContacts = $('#topContacts');
     var $footerContacts = $('#footerContacts');
@@ -165,7 +164,6 @@ bio.display = function() {
     $topContacts.prepend(formattedBioEmail);
     $topContacts.prepend(formattedBioMobile);
 
-   // $(".flex-item:last").append(formattedBioMessage);
     $header.append(HTMLskillsStart);
     $header.append(formattedBioPic);
 
